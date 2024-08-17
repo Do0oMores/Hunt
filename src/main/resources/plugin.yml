@@ -1,0 +1,6 @@
+name: Hunt
+version: '1.0-SNAPSHOT'
+main: top.mores.hunt.Hunt
+api-version: '1.18'
+authors: [ Mores ]
+description: 狩猎
