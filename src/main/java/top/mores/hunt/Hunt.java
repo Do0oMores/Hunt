@@ -15,7 +15,6 @@ public final class Hunt extends JavaPlugin {
     private File configFile;
     private File dataFile;
 
-
     @Override
     public void onEnable() {
         instance = this;
@@ -28,7 +27,7 @@ public final class Hunt extends JavaPlugin {
         getLogger().info("Hunt disabled");
     }
 
-    public Hunt getInstance() {
+    public static Hunt getInstance() {
         return instance;
     }
 
