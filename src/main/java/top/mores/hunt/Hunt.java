@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public final class Hunt extends JavaPlugin {
     private static Hunt instance;
@@ -19,6 +20,7 @@ public final class Hunt extends JavaPlugin {
     public void onEnable() {
         instance = this;
         initFiles();
+        Objects.requireNonNull(getCommand("hunt")).setExecutor(new HuntCommand());
         getLogger().info("Hunt enabled");
     }
 
@@ -78,8 +80,8 @@ public final class Hunt extends JavaPlugin {
     }
 
     @Override
-    public @NotNull FileConfiguration getConfig(){
-        if (config==null){
+    public @NotNull FileConfiguration getConfig() {
+        if (config == null) {
             reloadConfig();
         }
         return config;
