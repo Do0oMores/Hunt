@@ -2,10 +2,12 @@ package top.mores.hunt.EventListener;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.projectiles.ProjectileSource;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,8 +38,14 @@ public class AnimalListener implements Listener {
         if (entity.isDead()) return;
 
         hitCountMap.put(entity, hitCountMap.getOrDefault(entity, 0) + 1);
+
         if (event.getDamager() instanceof Player) {
             lastAttackerMap.put(entity, (Player) event.getDamager());
+        } else if (event.getDamager() instanceof Projectile projectile) {
+            ProjectileSource shooter = projectile.getShooter();
+            if (shooter instanceof Player) {
+                lastAttackerMap.put(entity, (Player) shooter);
+            }
         }
     }
 }
