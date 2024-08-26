@@ -4,6 +4,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import top.mores.hunt.EventListener.AnimalListener;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +21,7 @@ public final class Hunt extends JavaPlugin {
     public void onEnable() {
         instance = this;
         initFiles();
+        getServer().getPluginManager().registerEvents(new AnimalListener(), this);
         Objects.requireNonNull(getCommand("hunt")).setExecutor(new HuntCommand());
         getLogger().info("Hunt enabled");
     }
