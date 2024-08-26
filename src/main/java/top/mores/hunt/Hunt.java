@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import top.mores.hunt.EventListener.AnimalListener;
+import top.mores.hunt.Vault.VaultHandle;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +21,11 @@ public final class Hunt extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        if (!VaultHandle.setupVault()) {
+            getLogger().severe("Vault plugin not found! Disabling plugin.");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
         initFiles();
         getServer().getPluginManager().registerEvents(new AnimalListener(), this);
         Objects.requireNonNull(getCommand("hunt")).setExecutor(new HuntCommand());
