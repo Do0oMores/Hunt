@@ -9,6 +9,9 @@ import top.mores.hunt.Vault.VaultHandle;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public final class Hunt extends JavaPlugin {
@@ -17,6 +20,8 @@ public final class Hunt extends JavaPlugin {
     public FileConfiguration data;
     private File configFile;
     private File dataFile;
+    private final Map<String, Integer> entityValueMap = new HashMap<>();
+    private final Map<String, String> entityLevelMap = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -29,6 +34,7 @@ public final class Hunt extends JavaPlugin {
         initFiles();
         getServer().getPluginManager().registerEvents(new AnimalListener(), this);
         Objects.requireNonNull(getCommand("hunt")).setExecutor(new HuntCommand());
+        loadEntityValues();
         getLogger().info("Hunt enabled");
     }
 
@@ -93,5 +99,36 @@ public final class Hunt extends JavaPlugin {
             reloadConfig();
         }
         return config;
+    }
+
+    private void loadEntityValues() {
+        loadLevel("普通", 100);
+
+        loadLevel("少见", 250);
+
+        loadLevel("珍稀", 500);
+
+        loadLevel("史诗", 800);
+
+        loadLevel("传奇", 1200);
+
+        loadLevel("神话", 1800);
+    }
+
+    private void loadLevel(String levelName, int defaultValue) {
+        List<String> entities = config.getStringList("动物级别." + levelName + ".生物ID");
+        int value = config.getInt("动物级别." + levelName + ".价值", defaultValue);
+        for (String entity : entities) {
+            entityLevelMap.put(entity, levelName);
+            entityValueMap.put(entity, value);
+        }
+    }
+
+    public Map<String, Integer> getEntityValueMap() {
+        return entityValueMap;
+    }
+
+    public Map<String, String> getEntityLevelMap() {
+        return entityLevelMap;
     }
 }

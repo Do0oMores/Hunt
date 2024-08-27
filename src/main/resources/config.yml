@@ -1,25 +1,26 @@
 动物级别:
   普通:
     生物ID:
-      - exampleID
+      - Crocodile
+      - Bison
     价值: 100
   少见:
     生物ID:
-      - exampleID
+      - Kangaroo
     价值: 250
   珍稀:
     生物ID:
-      - exampleID
+      - Bald Eagle
     价值: 500
   史诗:
     生物ID:
-      - exampleID
+      - Tiger
     价值: 800
   传奇:
     生物ID:
-      - exampleID
+      - Elephant
     价值: 1200
   神话:
     生物ID:
-      - exampleID
+      - Caiman
     价值: 1800
