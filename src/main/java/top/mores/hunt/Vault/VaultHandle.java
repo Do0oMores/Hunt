@@ -1,7 +1,10 @@
 package top.mores.hunt.Vault;
 
 import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import top.mores.hunt.Animals.Level;
 
@@ -19,6 +22,19 @@ public class VaultHandle {
         }
         economy = rsp.getProvider();
         return true;
+    }
+
+    public void addPlayerVault(Player player, double value) {
+        if (economy == null) {
+            System.out.println("未找到经济插件");
+            return;
+        }
+        EconomyResponse response = economy.depositPlayer(player, value);
+        if (response.transactionSuccess()) {
+            player.sendMessage(ChatColor.GREEN + "已成功回收获得" + value + "金币");
+        } else {
+            System.out.println("添加经济失败");
+        }
     }
 
     /**
@@ -42,6 +58,7 @@ public class VaultHandle {
 
     /**
      * 倍率计算
+     *
      * @param count 受到伤害次数
      * @return 倍率
      */
